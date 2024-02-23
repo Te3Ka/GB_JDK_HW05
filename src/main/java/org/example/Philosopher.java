@@ -22,6 +22,11 @@ public class Philosopher extends Thread {
 
     @Override
     public void run() {
+        try {
+            sleep(random.nextInt(500, 2000));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (eatingNow) {
             try {
                 reflection();
@@ -50,13 +55,15 @@ public class Philosopher extends Thread {
     public void eating() throws InterruptedException {
         leftFork.setBusyNow(true);
         rightFork.setBusyNow(true);
-        System.out.println(getNamePhilosopher() + " ест лапшу. Использует вилки " + leftFork.getNum() + " и " + rightFork.getNum());
+        System.out.println(getNamePhilosopher() + " ест лапшу. Использует вилки "
+                + leftFork.getNum() + " и " + rightFork.getNum());
         satiety--;
         eatingNow = true;
-        Thread.sleep(random.nextInt(1000, 3000));
+        sleep(random.nextInt(1000, 3000));
         leftFork.setBusyNow(false);
         rightFork.setBusyNow(false);
-        System.out.println(getNamePhilosopher() + " кладёт вилки " + + leftFork.getNum() + " и " + rightFork.getNum() + " на стол.");
+        System.out.println(getNamePhilosopher() + " кладёт вилки "
+                + leftFork.getNum() + " и " + rightFork.getNum() + " на стол.");
     }
 
     public void reflection() throws InterruptedException {
@@ -64,6 +71,6 @@ public class Philosopher extends Thread {
         if (eatingNow) {
             eatingNow = false;
         }
-        Thread.sleep(random.nextInt(500, 2000));
+        sleep(random.nextInt(500, 2000));
     }
 }
